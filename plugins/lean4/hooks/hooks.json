@@ -1,5 +1,5 @@
 {
-  "description": "Lean4 v4: planning-first workflow with guardrails",
+  "description": "Lean4 v4: planning-first workflow (git guardrails hook disabled in this fork)",
   "hooks": {
     "SessionStart": [{
       "matcher": "startup",
@@ -7,10 +7,6 @@
     }],
     "UserPromptSubmit": [{
       "hooks": [{"type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate_user_prompt.py", "timeout": 5}]
-    }],
-    "PreToolUse": [{
-      "matcher": "Bash",
-      "hooks": [{"type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/hooks/guardrails.sh", "timeout": 5}]
     }]
   }
 }
