@@ -1,6 +1,6 @@
 ---
 name: lean4
-description: "Editing .lean files, debugging Lean 4 builds (type mismatch, sorry, instance synthesis, lake errors), mathlib search, formalizing, disproving a Lean statement, lakefile, or learning Lean 4. Not for Coq/Rocq, Agda, Isabelle, HOL4, Mizar, Idris."
+description: "Use when editing .lean files, debugging Lean 4 builds (type mismatch, sorry, instance synthesis, lake errors), searching mathlib, formalizing, disproving a Lean statement, or learning Lean 4 or lakefile. Not for Coq/Rocq, Agda, Isabelle, HOL4, Mizar, Idris."
 ---
 
 # Lean 4 Theorem Proving
