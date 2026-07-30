@@ -1,6 +1,7 @@
 ---
 name: lean4
 description: "Use when editing .lean files, debugging Lean 4 builds (type mismatch, sorry, instance synthesis, lake errors), searching mathlib, formalizing, disproving a Lean statement, or learning Lean 4 or lakefile. Not for Coq/Rocq, Agda, Isabelle, HOL4, Mizar, Idris."
+license: MIT
 ---
 
 # Lean 4 Theorem Proving
@@ -37,6 +38,12 @@ Use this skill whenever you're editing Lean 4 proofs, debugging Lean builds, for
 | `/lean4:golf` | Improve Lean proofs for directness, clarity, performance, and brevity |
 | `/lean4:learn` | Interactive teaching and mathlib exploration |
 | `/lean4:diagnose` | Diagnostics, cleanup, and migration help |
+
+`/lean4:*` names are the native plugin's command aliases and also serve
+as stable workflow names throughout this documentation. On hosts
+without command registration (skill-only or portable installs), invoke
+the `lean4` skill with your host's normal syntax and ask for the named
+workflow — e.g., "Use the guided `prove` workflow on `Foo.lean:42`."
 
 This plugin ships a host-agnostic parser (`lib/command_args/`) that covers the
 parser-decidable startup rules of the seven parameter-heavy commands (`draft`,
@@ -93,7 +100,7 @@ best-effort.
 
 - At most once per session. Do not repeat if the user declined, ignored it, or moved on.
 - Never mid-proof or during an active debugging loop.
-- One short line, not a pitch: "If you want, install the `lean4-contribute` plugin and I can draft that report for you here." See the [lean4-contribute README](../../../../plugins/lean4-contribute/README.md#installation) for setup.
+- One short line, not a pitch: "If you want, install the `lean4-contribute` plugin and I can draft that report for you here." See the [lean4-contribute README](https://github.com/cameronfreer/lean4-skills/blob/main/plugins/lean4-contribute/README.md#installation) for setup.
 
 ## Typical Workflow
 
@@ -240,15 +247,17 @@ See [sorry-filling.md](references/sorry-filling.md) for the full scratch-work pr
 Compatibility fallback (when a wrapper is unavailable):
 
 - If `lean4-skills-*` isn't resolvable on PATH, use the host's
-  documented setup (see INSTALLATION.md) to add `$LEAN4_PLUGIN_ROOT/bin`
-  to PATH. Some plugin hosts add this automatically; otherwise see
-  INSTALLATION.md.
+  documented setup to add `$LEAN4_PLUGIN_ROOT/bin` to PATH. Some plugin
+  hosts add this automatically; otherwise see the repository's
+  [INSTALLATION.md](https://github.com/cameronfreer/lean4-skills/blob/main/INSTALLATION.md).
 - Only as a last resort for an unwrapped script, use the explicit
   env-var form: `bash "$LEAN4_SCRIPTS/script.sh" …` or
   `${LEAN4_PYTHON_BIN:-python3} "$LEAN4_SCRIPTS/script.py" …`.
 
-If `$LEAN4_SCRIPTS` is unset or missing, run `/lean4:diagnose` and stay
-LSP-only until resolved.
+If `$LEAN4_SCRIPTS` is unset or missing, run `/lean4:diagnose` where the
+plugin's commands are installed, or follow
+[INSTALLATION.md](https://github.com/cameronfreer/lean4-skills/blob/main/INSTALLATION.md)
+on a skill-only install. Stay LSP-only until resolved.
 
 ## Automation
 
@@ -266,9 +275,14 @@ When editing `.lean` files without invoking a command, the skill runs **one boun
 - Try the [Automation Tactics](#automation-tactics) cascade
 - Validate with `lean_diagnostic_messages` (no project-gate `lake build` in this mode)
 - No looping, no deep escalation, no multi-cycle behavior, no commits
+- If one goal resists the pass, follow the Blocked-Goal Triage loop in
+  [references/sorry-filling.md](references/sorry-filling.md) before escalating
 - End with suggestions:
-  > Use `/lean4:prove` for guided cycle-by-cycle help.
-  > Use `/lean4:autoprove` for autonomous cycles with stop safeguards.
+  > Ask me to run the guided `prove` workflow for cycle-by-cycle help.
+  > Ask me to run the autonomous `autoprove` workflow for unattended cycles with stop safeguards.
+
+  (On a host with the plugin's commands installed, those are
+  `/lean4:prove` and `/lean4:autoprove`.)
 
 ## Quality Gate
 
